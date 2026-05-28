@@ -259,7 +259,7 @@
         }
 
         .product-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 12px;
             line-height: 1.4;
@@ -271,6 +271,13 @@
             font-weight: 700;
             color: #FF527B;
             margin-top: auto;
+        }
+
+        /* 다시 하기 버튼 컨테이너 */
+        .retry-container {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -423,11 +430,22 @@
 
         <div class="grid-container" id="products-grid">
             </div>
+
+        <div class="retry-container">
+            <button class="btn-main" onclick="retrySurvey()">다시 하기</button>
+        </div>
     </div>
 
     <script>
         function startSurvey() {
             document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('survey-screen').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        // [요청사항] 다시 설문으로 돌아가는 함수 추가
+        function retrySurvey() {
+            document.getElementById('shop-screen').style.display = 'none';
             document.getElementById('survey-screen').style.display = 'block';
             window.scrollTo(0,0);
         }
@@ -439,44 +457,65 @@
         function generateShop() {
             const form = document.getElementById('survey-form');
             
-            // 1. 간호화 매칭
+            // 1. 간호화 매칭 및 상품명/가격 재지정
             const shoeScore = parseInt(form.shoe_q1.value) + parseInt(form.shoe_q2.value) + parseInt(form.shoe_q3.value) + parseInt(form.shoe_q4.value);
             let shoeBrand = "";
-            if (shoeScore >= 0 && shoeScore <= 2) shoeBrand = "상록수";
-            else if (shoeScore >= 3 && shoeScore <= 5) shoeBrand = "샵피라";
-            else if (shoeScore >= 6 && shoeScore <= 8) shoeBrand = "엔젤슈즈";
-            else if (shoeScore >= 9 && shoeScore <= 10) shoeBrand = "너스키니";
-            else if (shoeScore >= 11 && shoeScore <= 12) shoeBrand = "에르코앤";
-            else if (shoeScore >= 13 && shoeScore <= 14) shoeBrand = "뽀너스";
-            else if (shoeScore >= 15 && shoeScore <= 16) shoeBrand = "널핏";
+            let shoeProdName = "듀얼 밸런스 기능성 완화 스니커즈";
+            let shoePrice = "49,000원";
+            
+            if (shoeScore >= 0 && shoeScore <= 2) { shoeBrand = "상록수"; shoeProdName = "데일리 가성비 기본형 워킹화"; shoePrice = "29,800원"; }
+            else if (shoeScore >= 3 && shoeScore <= 5) { shoeBrand = "샵피라"; shoeProdName = "이지클린 전문 의료용 오염방지 클로그"; shoePrice = "38,000원"; }
+            else if (shoeScore >= 6 && shoeScore <= 8) { shoeBrand = "엔젤슈즈"; shoeProdName = "와이드핏 컴포트 에어 간호화"; shoePrice = "42,500원"; }
+            else if (shoeScore >= 9 && shoeScore <= 10) { shoeBrand = "너스키니"; shoeProdName = "라이트핏 신축 확장형 경량화"; shoePrice = "49,900원"; }
+            else if (shoeScore >= 11 && shoeScore <= 12) { shoeBrand = "에르코앤"; shoeProdName = "스파인 코어 지지형 허리보호 간호화"; shoePrice = "59,000원"; }
+            else if (shoeScore >= 13 && shoeScore <= 14) { shoeBrand = "뽀너스"; shoeProdName = "임팩트 압축 에어 쿠션 뮬"; shoePrice = "54,800원"; }
+            else if (shoeScore >= 15 && shoeScore <= 16) { shoeBrand = "널핏"; shoeProdName = "프리미엄 아치케어 고기능성 슈즈"; shoePrice = "69,000원"; }
 
-            // 2. 압박스타킹 매칭
+            // 2. 압박스타킹 매칭 및 상품명/가격 재지정
             const stockingScore = parseInt(form.stocking_q1.value) + parseInt(form.stocking_q2.value) + parseInt(form.stocking_q3.value);
             let stockingBrand = "";
-            if (stockingScore >= 0 && stockingScore <= 2) stockingBrand = "알지토";
-            else if (stockingScore >= 3 && stockingScore <= 5) stockingBrand = "스마트널스";
-            else if (stockingScore >= 6 && stockingScore <= 8) stockingBrand = "너스키니";
-            else if (stockingScore >= 9 && stockingScore <= 10) stockingBrand = "널핏";
-            else if (stockingScore >= 11 && stockingScore <= 12) stockingBrand = "잡스타킹";
+            let stockingProdName = "종아리 집중 케어 솔루션";
+            let stockingPrice = "24,000원";
 
-            // 3. 간호 가방/소품 매칭
+            if (stockingScore >= 0 && stockingScore <= 2) { stockingBrand = "알지토"; stockingProdName = "데일리 라이트 입문용 압박 삭스"; stockingPrice = "15,000원"; }
+            else if (stockingScore >= 3 && stockingScore <= 5) { stockingBrand = "스마트널스"; stockingProdName = "소프트 이지 밴드 스타킹"; stockingPrice = "19,800원"; }
+            else if (stockingScore >= 6 && stockingScore <= 8) { stockingBrand = "너스키니"; stockingProdName = "밸런스 하이 컴프레션 올데이 스타킹"; stockingPrice = "23,500원"; }
+            else if (stockingScore >= 9 && stockingScore <= 10) { stockingBrand = "널핏"; stockingProdName = "프로 하이테크 정맥 순환 종아리 압박 슬리브"; stockingPrice = "29,000원"; }
+            else if (stockingScore >= 11 && stockingScore <= 12) { stockingBrand = "잡스타킹"; stockingProdName = "의료용 정통 점진적 감압 마스터 타이즈"; stockingPrice = "39,000원"; }
+
+            // 3. 간호 가방/소품 매칭 및 상품명/가격 재지정
             const bagScore = parseInt(form.bag_q1.value) + parseInt(form.bag_q2.value) + parseInt(form.bag_q3.value);
             let bagBrand = "";
-            if (bagScore >= 0 && bagScore <= 3) bagBrand = "널핏";
-            else if (bagScore >= 4 && bagScore <= 6) bagBrand = "너스키니";
-            else if (bagScore >= 7 && bagScore <= 9) bagBrand = "뽀너스";
-            else if (bagScore >= 10 && bagScore <= 12) bagBrand = "너스피아";
+            let bagProdName = "스마트 주머니 정리 오거나이저";
+            let bagPrice = "18,500원";
 
-            // 4. 건강보조 매칭
+            if (bagScore >= 0 && bagScore <= 3) { bagBrand = "널핏"; bagProdName = "미니멀 슬림 주머니 포켓 펜케이스"; bagPrice = "9,900원"; }
+            else if (bagScore >= 4 && bagScore <= 6) { bagBrand = "너스키니"; bagProdName = "데일리 분할 멀티 파우치 인백"; bagPrice = "14,500원"; }
+            else if (bagScore >= 7 && bagScore <= 9) { bagBrand = "뽀너스"; bagProdName = "세이프 가드 가위 도구 특화 하드 오거나이저"; bagPrice = "18,900원"; }
+            else if (bagScore >= 10 && bagScore <= 12) { bagBrand = "너스피아"; bagProdName = "헤비듀티 다용도 수납 멀티 힙색 바디백"; bagPrice = "26,500원"; }
+
+            // 4. 건강보조 매칭 및 상품명/가격 재지정
             const healthQ1 = parseInt(form.health_q1.value);
             const healthQ2 = form.health_q2.value;
             let healthBrand = "";
+            let healthProdName = "피로 회복 케어";
+            let healthPrice = "32,000원";
+
             if (healthQ2 === "A") {
-                healthBrand = (healthQ1 === 1) ? "휴족시간" : "동국제약";
+                if (healthQ1 === 1) {
+                    healthBrand = "휴족시간"; healthProdName = "릴렉싱 다리 쿨링 마사지 패치 (40매)"; healthPrice = "19,800원";
+                } else {
+                    healthBrand = "동국제약"; healthProdName = "센시아 정맥 순환 케어 솔루션 세트"; healthPrice = "35,000원";
+                }
             } else if (healthQ2 === "B") {
-                healthBrand = "폴리오";
+                healthBrand = "폴리오"; healthProdName = "무선 저주파 공기압 종아리 마사지기"; healthPrice = "129,000원";
             } else if (healthQ2 === "C") {
-                healthBrand = (form.health_q3.value === "1") ? "나우푸드" : "종근당";
+                const healthQ3 = form.health_q3.value;
+                if (healthQ3 === "1") {
+                    healthBrand = "나우푸드"; healthProdName = "구연산 칼슘 마그네슘 위드 아연 활력 캡슐"; healthPrice = "22,400원";
+                } else {
+                    healthBrand = "종근당"; healthProdName = "벤포벨 고함량 활성비타민B 만성피로 회복제"; healthPrice = "45,000원";
+                }
             }
 
             const grid = document.getElementById('products-grid');
@@ -488,8 +527,8 @@
                     </div>
                     <div class="product-info">
                         <div class="cat-tag">간호화</div>
-                        <div class="product-title">${shoeBrand}</div>
-                        <div class="product-price"></div>
+                        <div class="product-title">[${shoeBrand}] ${shoeProdName}</div>
+                        <div class="product-price">${shoePrice}</div>
                     </div>
                 </div>
 
@@ -500,8 +539,8 @@
                     </div>
                     <div class="product-info">
                         <div class="cat-tag">압박스타킹 / 양말</div>
-                        <div class="product-title">${stockingBrand}</div>
-                        <div class="product-price"></div>
+                        <div class="product-title">[${stockingBrand}] ${stockingProdName}</div>
+                        <div class="product-price">${stockingPrice}</div>
                     </div>
                 </div>
 
@@ -512,8 +551,8 @@
                     </div>
                     <div class="product-info">
                         <div class="cat-tag">간호 가방 · 소품</div>
-                        <div class="product-title">${bagBrand}</div>
-                        <div class="product-price"></div>
+                        <div class="product-title">[${bagBrand}] ${bagProdName}</div>
+                        <div class="product-price">${bagPrice}</div>
                     </div>
                 </div>
 
@@ -524,8 +563,8 @@
                     </div>
                     <div class="product-info">
                         <div class="cat-tag">건강 보조 제품</div>
-                        <div class="product-title">${healthBrand}</div>
-                        <div class="product-price"></div>
+                        <div class="product-title">[${healthBrand}] ${healthProdName}</div>
+                        <div class="product-price">${healthPrice}</div>
                     </div>
                 </div>
             `;

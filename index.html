@@ -192,6 +192,15 @@
         .shop-header p {
             color: #888;
             font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        /* [요청사항] 추가 안내 문구 스타일 */
+        .shop-header .notice {
+            color: #FF527B;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 15px;
         }
 
         .grid-container {
@@ -206,6 +215,11 @@
             }
         }
 
+        .product-link {
+            text-decoration: none;
+            display: block;
+        }
+
         .product-card {
             background-color: var(--white);
             border-radius: 24px;
@@ -214,6 +228,8 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s ease;
+            height: 100%;
+            cursor: pointer;
         }
 
         .product-card:hover {
@@ -259,21 +275,13 @@
         }
 
         .product-title {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 4px;
             line-height: 1.4;
             color: #333;
         }
 
-        .product-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #FF527B;
-            margin-top: auto;
-        }
-
-        /* 다시 하기 버튼 컨테이너 */
         .retry-container {
             text-align: center;
             margin-top: 40px;
@@ -362,7 +370,7 @@
             </div>
 
             <div class="category-section">
-                <div class="category-name">💼 간호 가방 · 소품 카테고리</div>
+                <div class="category-name">💼 간호 포켓 카테고리</div>
                 <div class="question-box">
                     <p>Q1. 근무 중 소지품 양은?</p>
                     <div class="options-group">
@@ -426,6 +434,7 @@
         <div class="shop-header">
             <h2>간호사님을 위한 맞춤형<br>인공지능 쇼핑몰</h2>
             <p>데이터 분석을 통해 간호사님께 가장 필요한 아이템을 선별했습니다.</p>
+            <p class="notice">위에 제품을 누르면 네이버 쇼핑 링크로 가요!</p>
         </div>
 
         <div class="grid-container" id="products-grid">
@@ -443,7 +452,6 @@
             window.scrollTo(0,0);
         }
 
-        // [요청사항] 다시 설문으로 돌아가는 함수 추가
         function retrySurvey() {
             document.getElementById('shop-screen').style.display = 'none';
             document.getElementById('survey-screen').style.display = 'block';
@@ -457,116 +465,117 @@
         function generateShop() {
             const form = document.getElementById('survey-form');
             
-            // 1. 간호화 매칭 및 상품명/가격 재지정
+            // 1. 간호화 매칭 및 링크 지정
             const shoeScore = parseInt(form.shoe_q1.value) + parseInt(form.shoe_q2.value) + parseInt(form.shoe_q3.value) + parseInt(form.shoe_q4.value);
             let shoeBrand = "";
-            let shoeProdName = "듀얼 밸런스 기능성 완화 스니커즈";
-            let shoePrice = "49,000원";
+            let shoeUrl = "";
             
-            if (shoeScore >= 0 && shoeScore <= 2) { shoeBrand = "상록수"; shoeProdName = "데일리 가성비 기본형 워킹화"; shoePrice = "29,800원"; }
-            else if (shoeScore >= 3 && shoeScore <= 5) { shoeBrand = "샵피라"; shoeProdName = "이지클린 전문 의료용 오염방지 클로그"; shoePrice = "38,000원"; }
-            else if (shoeScore >= 6 && shoeScore <= 8) { shoeBrand = "엔젤슈즈"; shoeProdName = "와이드핏 컴포트 에어 간호화"; shoePrice = "42,500원"; }
-            else if (shoeScore >= 9 && shoeScore <= 10) { shoeBrand = "너스키니"; shoeProdName = "라이트핏 신축 확장형 경량화"; shoePrice = "49,900원"; }
-            else if (shoeScore >= 11 && shoeScore <= 12) { shoeBrand = "에르코앤"; shoeProdName = "스파인 코어 지지형 허리보호 간호화"; shoePrice = "59,000원"; }
-            else if (shoeScore >= 13 && shoeScore <= 14) { shoeBrand = "뽀너스"; shoeProdName = "임팩트 압축 에어 쿠션 뮬"; shoePrice = "54,800원"; }
-            else if (shoeScore >= 15 && shoeScore <= 16) { shoeBrand = "널핏"; shoeProdName = "프리미엄 아치케어 고기능성 슈즈"; shoePrice = "69,000원"; }
+            if (shoeScore >= 0 && shoeScore <= 2) { shoeBrand = "상록수"; shoeUrl = "https://search.shopping.naver.com/search/all?query=상록수간호화"; }
+            else if (shoeScore >= 3 && shoeScore <= 5) { shoeBrand = "샵피라"; shoeUrl = "https://search.shopping.naver.com/search/all?query=샵피라간호화"; }
+            else if (shoeScore >= 6 && shoeScore <= 8) { shoeBrand = "엔젤슈즈"; shoeUrl = "https://search.shopping.naver.com/search/all?query=엔젤슈즈간호화"; }
+            else if (shoeScore >= 9 && shoeScore <= 10) { shoeBrand = "너스키니"; shoeUrl = "https://search.shopping.naver.com/search/all?query=너스키니간호화"; }
+            else if (shoeScore >= 11 && shoeScore <= 12) { shoeBrand = "에르코엔"; shoeUrl = "https://search.shopping.naver.com/search/all?query=에르코엔간호화"; }
+            else if (shoeScore >= 13 && shoeScore <= 14) { shoeBrand = "뽀너스"; shoeUrl = "https://search.shopping.naver.com/search/all?query=뽀너스간호화"; }
+            else if (shoeScore >= 15 && shoeScore <= 16) { shoeBrand = "널핏"; shoeUrl = "https://search.shopping.naver.com/search/all?query=널핏간호화"; }
 
-            // 2. 압박스타킹 매칭 및 상품명/가격 재지정
+            // 2. 압박스타킹 매칭 및 링크 지정
             const stockingScore = parseInt(form.stocking_q1.value) + parseInt(form.stocking_q2.value) + parseInt(form.stocking_q3.value);
             let stockingBrand = "";
-            let stockingProdName = "종아리 집중 케어 솔루션";
-            let stockingPrice = "24,000원";
+            let stockingUrl = "";
 
-            if (stockingScore >= 0 && stockingScore <= 2) { stockingBrand = "알지토"; stockingProdName = "데일리 라이트 입문용 압박 삭스"; stockingPrice = "15,000원"; }
-            else if (stockingScore >= 3 && stockingScore <= 5) { stockingBrand = "스마트널스"; stockingProdName = "소프트 이지 밴드 스타킹"; stockingPrice = "19,800원"; }
-            else if (stockingScore >= 6 && stockingScore <= 8) { stockingBrand = "너스키니"; stockingProdName = "밸런스 하이 컴프레션 올데이 스타킹"; stockingPrice = "23,500원"; }
-            else if (stockingScore >= 9 && stockingScore <= 10) { stockingBrand = "널핏"; stockingProdName = "프로 하이테크 정맥 순환 종아리 압박 슬리브"; stockingPrice = "29,000원"; }
-            else if (stockingScore >= 11 && stockingScore <= 12) { stockingBrand = "잡스타킹"; stockingProdName = "의료용 정통 점진적 감압 마스터 타이즈"; stockingPrice = "39,000원"; }
+            if (stockingScore >= 0 && stockingScore <= 2) { stockingBrand = "알지토"; stockingUrl = "https://search.shopping.naver.com/search/all?query=알지토압박스타킹"; }
+            else if (stockingScore >= 3 && stockingScore <= 5) { stockingBrand = "스마트널스"; stockingUrl = "https://search.shopping.naver.com/search/all?query=스마트널스압박스타킹"; }
+            else if (stockingScore >= 6 && stockingScore <= 8) { stockingBrand = "너스키니"; stockingUrl = "https://search.shopping.naver.com/search/all?query=너스키니압박스타킹"; }
+            else if (stockingScore >= 9 && stockingScore <= 10) { stockingBrand = "널핏"; stockingUrl = "https://search.shopping.naver.com/search/all?query=널핏압박스타킹"; }
+            else if (stockingScore >= 11 && stockingScore <= 12) { stockingBrand = "잡스타킹"; stockingUrl = "https://search.shopping.naver.com/search/all?query=잡스타킹압박스타킹"; }
 
-            // 3. 간호 가방/소품 매칭 및 상품명/가격 재지정
+            // 3. 간호 포켓 매칭 및 링크 지정 [널핏 -> 로에드 요청사항 수정 반영]
             const bagScore = parseInt(form.bag_q1.value) + parseInt(form.bag_q2.value) + parseInt(form.bag_q3.value);
             let bagBrand = "";
-            let bagProdName = "스마트 주머니 정리 오거나이저";
-            let bagPrice = "18,500원";
+            let bagUrl = "";
 
-            if (bagScore >= 0 && bagScore <= 3) { bagBrand = "널핏"; bagProdName = "미니멀 슬림 주머니 포켓 펜케이스"; bagPrice = "9,900원"; }
-            else if (bagScore >= 4 && bagScore <= 6) { bagBrand = "너스키니"; bagProdName = "데일리 분할 멀티 파우치 인백"; bagPrice = "14,500원"; }
-            else if (bagScore >= 7 && bagScore <= 9) { bagBrand = "뽀너스"; bagProdName = "세이프 가드 가위 도구 특화 하드 오거나이저"; bagPrice = "18,900원"; }
-            else if (bagScore >= 10 && bagScore <= 12) { bagBrand = "너스피아"; bagProdName = "헤비듀티 다용도 수납 멀티 힙색 바디백"; bagPrice = "26,500원"; }
+            if (bagScore >= 0 && bagScore <= 3) { bagBrand = "로에드"; bagUrl = "https://search.shopping.naver.com/search/all?query=로에드널스포켓"; }
+            else if (bagScore >= 4 && bagScore <= 6) { bagBrand = "너스키니"; bagUrl = "https://search.shopping.naver.com/search/all?query=너스키니널스포켓"; }
+            else if (bagScore >= 7 && bagScore <= 9) { bagBrand = "뽀너스"; bagUrl = "https://search.shopping.naver.com/search/all?query=뽀너스널스포켓"; }
+            else if (bagScore >= 10 && bagScore <= 12) { bagBrand = "너스피아"; bagUrl = "https://search.shopping.naver.com/search/all?query=너스피아널스포켓"; }
 
-            // 4. 건강보조 매칭 및 상품명/가격 재지정
+            // 4. 건강보조 매칭 및 링크 지정
             const healthQ1 = parseInt(form.health_q1.value);
             const healthQ2 = form.health_q2.value;
             let healthBrand = "";
-            let healthProdName = "피로 회복 케어";
-            let healthPrice = "32,000원";
+            let healthUrl = "";
 
             if (healthQ2 === "A") {
                 if (healthQ1 === 1) {
-                    healthBrand = "휴족시간"; healthProdName = "릴렉싱 다리 쿨링 마사지 패치 (40매)"; healthPrice = "19,800원";
+                    healthBrand = "휴족시간"; healthUrl = "https://search.shopping.naver.com/search/all?query=휴족시간";
                 } else {
-                    healthBrand = "동국제약"; healthProdName = "센시아 정맥 순환 케어 솔루션 세트"; healthPrice = "35,000원";
+                    healthBrand = "동국제약"; healthUrl = "https://search.shopping.naver.com/search/all?query=동국제약파스";
                 }
             } else if (healthQ2 === "B") {
-                healthBrand = "폴리오"; healthProdName = "무선 저주파 공기압 종아리 마사지기"; healthPrice = "129,000원";
+                healthBrand = "폴리오"; healthUrl = "https://search.shopping.naver.com/search/all?query=폴리오";
             } else if (healthQ2 === "C") {
                 const healthQ3 = form.health_q3.value;
                 if (healthQ3 === "1") {
-                    healthBrand = "나우푸드"; healthProdName = "구연산 칼슘 마그네슘 위드 아연 활력 캡슐"; healthPrice = "22,400원";
+                    healthBrand = "나우푸드"; healthUrl = "https://search.shopping.naver.com/search/all?query=나우푸드";
                 } else {
-                    healthBrand = "종근당"; healthProdName = "벤포벨 고함량 활성비타민B 만성피로 회복제"; healthPrice = "45,000원";
+                    healthBrand = "종근당"; healthUrl = "https://search.shopping.naver.com/search/all?query=종근당종합비타민";
                 }
             }
 
+            // [요청사항] 이름 및 가격 텍스트 제거하고 브랜드명만 깔끔하게 카드 생성
             const grid = document.getElementById('products-grid');
             grid.innerHTML = `
-                <div class="product-card">
-                    <div class="image-placeholder">
-                        <span class="brand-badge">${shoeBrand}</span>
-                        👟
+                <a href="${shoeUrl}" target="_blank" class="product-link">
+                    <div class="product-card">
+                        <div class="image-placeholder">
+                            <span class="brand-badge">${shoeBrand}</span>
+                            👟
+                        </div>
+                        <div class="product-info">
+                            <div class="cat-tag">간호화</div>
+                            <div class="product-title">${shoeBrand}</div>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <div class="cat-tag">간호화</div>
-                        <div class="product-title">[${shoeBrand}] ${shoeProdName}</div>
-                        <div class="product-price">${shoePrice}</div>
-                    </div>
-                </div>
+                </a>
 
-                <div class="product-card">
-                    <div class="image-placeholder">
-                        <span class="brand-badge">${stockingBrand}</span>
-                        🧦
+                <a href="${stockingUrl}" target="_blank" class="product-link">
+                    <div class="product-card">
+                        <div class="image-placeholder">
+                            <span class="brand-badge">${stockingBrand}</span>
+                            🧦
+                        </div>
+                        <div class="product-info">
+                            <div class="cat-tag">압박스타킹 / 양말</div>
+                            <div class="product-title">${stockingBrand}</div>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <div class="cat-tag">압박스타킹 / 양말</div>
-                        <div class="product-title">[${stockingBrand}] ${stockingProdName}</div>
-                        <div class="product-price">${stockingPrice}</div>
-                    </div>
-                </div>
+                </a>
 
-                <div class="product-card">
-                    <div class="image-placeholder">
-                        <span class="brand-badge">${bagBrand}</span>
-                        💼
+                <a href="${bagUrl}" target="_blank" class="product-link">
+                    <div class="product-card">
+                        <div class="image-placeholder">
+                            <span class="brand-badge">${bagBrand}</span>
+                            💼
+                        </div>
+                        <div class="product-info">
+                            <div class="cat-tag">간호 포켓</div>
+                            <div class="product-title">${bagBrand}</div>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <div class="cat-tag">간호 가방 · 소품</div>
-                        <div class="product-title">[${bagBrand}] ${bagProdName}</div>
-                        <div class="product-price">${bagPrice}</div>
-                    </div>
-                </div>
+                </a>
 
-                <div class="product-card">
-                    <div class="image-placeholder">
-                        <span class="brand-badge">${healthBrand}</span>
-                        💊
+                <a href="${healthUrl}" target="_blank" class="product-link">
+                    <div class="product-card">
+                        <div class="image-placeholder">
+                            <span class="brand-badge">${healthBrand}</span>
+                            💊
+                        </div>
+                        <div class="product-info">
+                            <div class="cat-tag">건강 보조 제품</div>
+                            <div class="product-title">${healthBrand}</div>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <div class="cat-tag">건강 보조 제품</div>
-                        <div class="product-title">[${healthBrand}] ${healthProdName}</div>
-                        <div class="product-price">${healthPrice}</div>
-                    </div>
-                </div>
+                </a>
             `;
 
             document.getElementById('survey-screen').style.display = 'none';

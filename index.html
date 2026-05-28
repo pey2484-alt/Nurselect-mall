@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nurselect - 간호사 맞춤 근무용품 큐레이션 쇼핑몰</title>
+<style>
+:root {
+--primary: #5c6bc0;
+--primary-light: #eeeeff;
+--primary-dark: #3949ab;
+--text-main: #2c3e50;
+--text-muted: #7f8c8d;
+--bg-light: #f8f9fa;
+--border-color: #e2e8f0;
+--accent-pink: #ff8a80;
+--accent-purple: #ba68c8;
+}
+
+* {
+box-sizing: border-box;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+margin: 0;
+padding: 0;
+}
+
+body {
+background-color: var(--bg-light);
+color: var(--text-main);
+line-height: 1.6;
+}
+
+header {
+background-color: #ffffff;
+border-bottom: 1px solid var(--border-color);
+position: sticky;
+top: 0;
+z-index: 100;
+padding: 15px 20px;
+text-align: center;
+box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.logo {
+font-size: 24px;
+font-weight: 800;
+color: var(--primary);
+letter-spacing: 0.5px;
+display: inline-block;
+}
+
+.logo span {
+color: var(--accent-purple);
+}
+
+main {
+max-width: 600px;
+margin: 20px auto;
+padding: 0 15px 80px 15px;
+}
+
+.banner {
+background: linear-gradient(135deg, #7986cb, #ba68c8);
+border-radius: 16px;
+padding: 25px 20px;
+color: white;
+margin-bottom: 25px;
+text-align: center;
+box-shadow: 0 4px 12px rgba(92, 107, 192, 0.15);
+}
+
+.banner h1 {
+font-size: 20px;
+font-weight: 700;
+margin-bottom: 8px;
+}
+
+.banner p {
+font-size: 13px;
+opacity: 0.9;
+}
+
+.card {
+background-color: #ffffff;
+border-radius: 16px;
+padding: 24px;
+margin-bottom: 20px;
+border: 1px solid var(--border-color);
+box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+}
+
+.category-title {
+font-size: 16px;
+font-weight: 700;
+color: var(--primary-dark);
+margin-bottom: 18px;
+display: flex;
+align-items: center;
+gap: 8px;
+border-left: 4px solid var(--primary);
+padding-left: 8px;
+}
+
+.question-block {
+margin-bottom: 20px;
+}
+
+.question-text {
+font-size: 14px;
+font-weight: 600;
+margin-bottom: 12px;
+color: var(--text-main);
+}
+
+.option-item {
+display: block;
+background-color: var(--bg-light);
+border: 1px solid var(--border-color);
+border-radius: 10px;
+padding: 12px 15px;
+margin-bottom: 8px;
+cursor: pointer;
+font-size: 13px;
+transition: all 0.2s ease;
+}
+
+.option-item:hover {
+background-color: #f1f3f9;
+border-color: #cbd5e1;
+}
+
+.option-item input[type="radio"] {
+display: none;
+}
+
+.option-item.selected {
+background-color: var(--primary-light);
+border-color: var(--primary);
+color: var(--primary-dark);
+font-weight: 600;
+}
+
+.conditional-q {
+display: none;
+background-color: #f5f6fa;
+border-radius: 12px;
+padding: 15px;
+margin-top: 10px;
+border: 1px dashed var(--border-color);
+}
+
+.btn-submit {
+background: linear-gradient(90deg, var(--primary), var(--accent-purple));
+color: white;
+border: none;
+width: 100%;
+padding: 15px;
+border-radius: 12px;
+font-size: 15px;
+font-weight: 700;
+cursor: pointer;
+box-shadow: 0 4px 10px rgba(92, 107, 192, 0.2);
+margin-top: 10px;
+transition: all 0.2s;
+}
+
+.btn-submit:hover {
+opacity: 0.95;
+transform: translateY(-1px);
+}
+
+#result-section {
+display: none;
+}
+
+.mall-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+border-bottom: 2px solid var(--text-main);
+padding-bottom: 10px;
+}
+
+.mall-header h2 {
+font-size: 18px;
+font-weight: 700;
+}
+
+.mall-header .user-tag {
+font-size: 12px;
+background-color: var(--accent-pink);
+color: white;
+padding: 3px 8px;
+border-radius: 20px;
+font-weight: 600;
+}
+
+.product-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 15px;
+}
+
+.product-card {
+background: white;
+border-radius: 12px;
+overflow: hidden;
+border: 1px solid var(--border-color);
+display: flex;
+flex-direction: column;
+}
+
+.product-image-placeholder {
+width: 100%;
+height: 160px;
+background-color: #eaedf2;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+color: var(--primary);
+font-size: 13px;
+font-weight: 700;
+position: relative;
+}
+
+.product-image-placeholder .category-badge {
+position: absolute;
+top: 10px;
+left: 10px;
+background-color: rgba(44, 62, 80, 0.8);
+color: white;
+font-size: 10px;
+padding: 2px 6px;
+border-radius: 4px;
+}
+
+.product-image-placeholder .brand-logo-text {
+font-size: 20px;
+letter-spacing: -0.5px;
+margin-bottom: 4px;
+color: var(--text-main);
+opacity: 0.8;
+}
+
+.product-info {
+padding: 12px;
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.product-brand {
+font-size: 11px;
+color: var(--primary);
+font-weight: 700;
+margin-bottom: 2px;
+text-transform: uppercase;
+}
+
+.product-name {
+font-size: 13px;
+font-weight: 600;
+color: var(--text-main);
+margin-bottom: 8px;
+line-height: 1.4;
+height: 36px;
+overflow: hidden;
+}
+
+.product-meta {
+font-size: 11px;
+color: #e74c3c;
+background-color: #fdedec;
+padding: 4px 8px;
+border-radius: 6px;
+font-weight: 600;
+margin-bottom: 8px;
+text-align: center;
+}
+
+.product-price-row {
+display: flex;
+align-items: baseline;
+gap: 5px;
+}
+
+.discount-rate {
+color: var(--accent-pink);
+font-weight: 700;
+font-size: 14px;
+}
+
+.price {
+font-size: 14px;
+font-weight: 700;
+color: var(--text-main);
+}
+
+.btn-retry {
+background-color: #ffffff;
+color: var(--text-main);
+border: 1px solid #cbd5e1;
+width: 100%;
+padding: 12px;
+border-radius: 12px;
+font-size: 14px;
+font-weight: 600;
+cursor: pointer;
+margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">Nurs<span>elect</span></div>
+</header>
+
+<main>
+<div id="survey-section">
+<div class="banner">
+<h1>내 임상 맞춤형 간호 아이템 찾기</h1>
+<p>근무 환경과 피로도를 기반으로 완벽한 매칭 브랜드를 찾아 정렬합니다.</p>
+</div>
+
+<form id="survey-form" onsubmit="event.preventDefault(); calculateResults();">
+<div class="card">
+<div class="category-title">👟 1. 간호화 / 클로그 추천 문항</div>
+
+<div class="question-block">
+<div class="question-text">Q1. 하루 평균 이동량은 어느 정도인가요?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="shoe_q1" value="0" required onclick="selectOption(this)">1만 보 이하 (외래, 진료실 등 라이트한 환경)</label>
+<label class="option-item"><input type="radio" name="shoe_q1" value="2" onclick="selectOption(this)">1만 ~ 2만 보 (일반 병동, 평균적인 스케줄)</label>
+<label class="option-item"><input type="radio" name="shoe_q1" value="4" onclick="selectOption(this)">2만 보 이상 (응급실, 바쁜 액티브 병동 부서)</label>
+</div>
+</div>
+
+<div class="question-block">
+<div class="question-text">Q2. 임상에서의 주요 근무 형태는 무엇인가요?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="shoe_q2" value="0" required onclick="selectOption(this)">오래 서 있는다 (수술실, 중환자실 스테이션)</label>
+<label class="option-item"><input type="radio" name="shoe_q2" value="2" onclick="selectOption(this)">둘 다 비슷하다 (걷기와 서기의 균형)</label>
+<label class="option-item"><input type="radio" name="shoe_q2" value="4" onclick="selectOption(this)">많이 걷는다 (병동 라운딩, 액티브 파트)</label>
+</div>
+</div>
+
+<div class="question-block">
+<div class="question-text">Q3. 본인의 발볼 타입은 어떠신가요?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="shoe_q3" value="0" required onclick="selectOption(this)">좁음</label>
+<label class="option-item"><input type="radio" name="shoe_q3" value="2" onclick="selectOption(this)">보통</label>
+<label class="option-item"><input type="radio" name="shoe_q3" value="4" onclick="selectOption(this)">넓음 (발볼 탈출러, 무지외반 걱정)</label>
+</div>
+</div>
+
+<div class="question-block">
+<div class="question-text">Q4. 근무 중 현재 발에서 가장 불편한 점은?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="shoe_q4" value="0" required onclick="selectOption(this)">없음 (가성비/기본형 원함)</label>
+<label class="option-item"><input type="radio" name="shoe_q4" value="2" onclick="selectOption(this)">발 전체 피로</label>
+<label class="option-item"><input type="radio" name="shoe_q4" value="3" onclick="selectOption(this)">무릎/허리 부담</label>
+<label class="option-item"><input type="radio" name="shoe_q4" value="4" onclick="selectOption(this)">발바닥 통증 (족저근막 등)</label>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="category-title">🧦 2. 의료용 압박 스타킹 추천 문항</div>
+
+<div class="question-block">
+<div class="question-text">Q1. 근무 후 다리 상태는?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="stocking_q1" value="0" required onclick="selectOption(this)">괜찮음</label>
+<label class="option-item"><input type="radio" name="stocking_q1" value="2" onclick="selectOption(this)">약간 붓는다</label>
+<label class="option-item"><input type="radio" name="stocking_q1" value="4" onclick="selectOption(this)">많이 붓는다</label>
+</div>
+</div>
+
+<div class="question-block">
+<div class="question-text">Q2. 하루 근무 시간은?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="stocking_q2" value="0" required onclick="selectOption(this)">8시간 이하</label>
+<label class="option-item"><input type="radio" name="stocking_q2" value="2" onclick="selectOption(this)">8~12시간</label>
+<label class="option-item"><input type="radio" name="stocking_q2" value="4" onclick="selectOption(this)">12시간 이상</label>
+</div>
+</div>
+
+<div class="question-block">
+<div class="question-text">Q3. 압박 제품 사용 경험은?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="stocking_q3" value="0" required onclick="selectOption(this)">없음</label>
+<label class="option-item"><input type="radio" name="stocking_q3" value="2" onclick="selectOption(this)">가끔 사용</label>
+<label class="option-item"><input type="radio" name="stocking_q3" value="4" onclick="selectOption(this)">매일 사용</label>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="category-title">💼 3. 간호 가방 / 오거나이저 추천 문항</div>
+
+<div class="question-block">
+<div class="question-text">Q1. 근무 중 소지품 양은?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="bag_q1" value="0" required onclick="selectOption(this)">적음</label>
+<label class="option-item"><input type="radio" name="bag_q1" value="2" onclick="selectOption(this)">보통</label>
+<label class="option-item"><input type="radio" name="bag_q1" value="4" onclick="selectOption(this)">많음</label>
+</div>
+</div>
+
+<div class="question-block">
+<div class="question-text">Q2. 가장 많이 사용하는 소품은?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="bag_q2" value="0" required onclick="selectOption(this)">펜</label>
+<label class="option-item"><input type="radio" name="bag_q2" value="2" onclick="selectOption(this)">테이프/소모품</label>
+<label class="option-item"><input type="radio" name="bag_q2" value="4" onclick="selectOption(this)">가위/도구</label>
+</div>
+</div>
+
+<div class="question-block">
+<div class="question-text">Q3. 중요하게 생각하는 요소는?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="bag_q3" value="0" required onclick="selectOption(this)">가벼움</label>
+<label class="option-item"><input type="radio" name="bag_q3" value="2" onclick="selectOption(this)">내구성</label>
+<label class="option-item"><input type="radio" name="bag_q3" value="4" onclick="selectOption(this)">수납력</label>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="category-title">💊 4. 건강 보조 제품 추천 문항</div>
+
+<div class="question-block">
+<div class="question-text">Q1. 가장 힘든 신체 부위는?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="health_q1" value="1" required onclick="selectOption(this)">발/다리</label>
+<label class="option-item"><input type="radio" name="health_q1" value="2" onclick="selectOption(this)">허리</label>
+<label class="option-item"><input type="radio" name="health_q1" value="3" onclick="selectOption(this)">전신 피로</label>
+</div>
+</div>
+
+<div class="question-block">
+<div class="question-text">Q2. 피로 회복 방법은? 또는 가장 사용 의향이 있는 제품 형태는?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="health_q2" value="patch" required onclick="toggleSuppQ(false); selectOption(this)">파스 / 패치</label>
+<label class="option-item"><input type="radio" name="health_q2" value="device" onclick="toggleSuppQ(false); selectOption(this)">마사지 기기</label>
+<label class="option-item"><input type="radio" name="health_q2" value="supplement" onclick="toggleSuppQ(true); selectOption(this)">영양제 / 알약</label>
+</div>
+</div>
+
+<div id="supplement-q3" class="conditional-q">
+<div class="question-text">💡 영양제 전용 질문: 가장 얻고 싶은 효과는?</div>
+<div class="options-grid">
+<label class="option-item"><input type="radio" name="health_q3" value="nowfoods" onclick="selectOption(this)">① 부족한 특정 영양소 분리 섭취 (칼슘/마그네슘/유산균 등)</label>
+<label class="option-item"><input type="radio" name="health_q3" value="chongkundang" onclick="selectOption(this)">② 한 알로 끝내는 강력한 만성 피로 복구 (비타민B군/에너지)</label>
+</div>
+</div>
+</div>
+
+<button type="submit" class="btn-submit">내 임상 맞춤 쇼핑몰 입장하기 ➔</button>
+</form>
+</div>
+
+<div id="result-section">
+<div class="mall-header">
+<h2>🩺 Nurselect 개인화 매칭 스토어</h2>
+<div class="user-tag">임상 최적화 큐레이션 완료</div>
+</div>
+
+<div class="product-grid" id="mall-products">
+</div>
+
+<button class="btn-retry" onclick="resetSurvey()">⟲ 설문 다시 하고 맞춤 상품 변경하기</button>
+</div>
+</main>
+
+<script>
+function selectOption(element) {
+const name = element.getAttribute('name');
+const siblings = document.querySelectorAll(input[name="${name}"]`);
+siblings.forEach(radio => {
+radio.parentElement.classList.remove('selected');
+});
+if (element.checked) {
+element.parentElement.classList.add('selected');
+}
+}
+
+function toggleSuppQ(show) {
+const suppQ = document.getElementById('supplement-q3');
+const q3Radios = document.querySelectorAll('input[name="health_q3"]');
+if (show) {
+suppQ.style.display = 'block';
+q3Radios.forEach(r => r.required = true);
+} else {
+suppQ.style.display = 'none';
+q3Radios.forEach(r => {
+r.required = false;
+r.checked = false;
+r.parentElement.classList.remove('selected');
+});
+}
+}
+
+function calculateResults() {
+// 1. 간호화 매칭 계산
+const shoeScore = parseInt(document.querySelector('input[name="shoe_q1"]:checked').value) +
+parseInt(document.querySelector('input[name="shoe_q2"]:checked').value) +
+parseInt(document.querySelector('input[name="shoe_q3"]:checked').value) +
+parseInt(document.querySelector('input[name="shoe_q4"]:checked').value);
+
+let shoeBrand = ""; let shoeDesc = "";
+if(shoeScore <= 2) { shoeBrand = "상록수"; shoeDesc = "활동량이 적고 발에 통증이 없는 최적의 가성비 기본 스니커즈"; }
+else if(shoeScore <= 5) { shoeBrand = "샵피라"; shoeDesc = "세척이 간편해 약물 오염 방지에 우수한 정통 간호 클로그"; }
+else if(shoeScore <= 8) { shoeBrand = "엔젤슈즈"; shoeDesc = "보통/넓은 발볼 유저가 편안하게 착용하는 대중적 기능성 슈즈"; }
+else if(shoeScore <= 10) { shoeBrand = "너스키니"; shoeDesc = "무게감을 없애 발 피로를 줄여주는 초경량 메쉬 슬립온"; }
+else if(shoeScore <= 12) { shoeBrand = "에르코앤"; shoeDesc = "체형 축을 지지해 무릎/허리 부담을 줄이는 인체공학적 인솔화"; }
+else if(shoeScore <= 14) { shoeBrand = "뽀너스"; shoeDesc = "두툼한 에어 쿠션과 뒤축이 트여 피로를 잡는 고강도 에어 뮬"; }
+else { shoeBrand = "널핏"; shoeDesc = "2만보 이상 격무 유저의 족저 아치를 지지하는 프리미엄 기능성 간호화"; }
+
+// 2. 압박스타킹 매칭 계산
+const stockScore = parseInt(document.querySelector('input[name="stocking_q1"]:checked').value) +
+parseInt(document.querySelector('input[name="stocking_q2"]:checked').value) +
+parseInt(document.querySelector('input[name="stocking_q3"]:checked').value);
+
+let stockBrand = ""; let stockDesc = "";
+if(stockScore <= 2) { stockBrand = "알지토"; stockDesc = "다리 피로도가 낮은 분을 위한 데일리/일상 겸용 가성비 삭스"; }
+else if(stockScore <= 5) { stockBrand = "스마트널스"; stockDesc = "압박이 과하지 않아 근무 중 착용이 간편한 소프트 밴드"; }
+else if(stockScore <= 8) { stockBrand = "너스키니"; stockDesc = "부드럽고 쫀쫀한 인장력 밸런스로 매일 신기 편한 압박 스타킹"; }
+else if(stockScore <= 10) { stockBrand = "널핏"; stockDesc = "장시간 근무하는 임상 현직자를 위한 종아리 집중 단계별 압박"; }
+else { stockBrand = "잡스타킹"; stockDesc = "극심한 부종과 저림을 호소하는 마스터 유저용 정통 의료용 압박삭스"; }
+
+// 3. 간호가방 매칭 계산
+const bagScore = parseInt(document.querySelector('input[name="bag_q1"]:checked').value) +
+parseInt(document.querySelector('input[name="bag_q2"]:checked').value) +
+parseInt(document.querySelector('input[name="bag_q3"]:checked').value);
+
+let bagBrand = ""; let bagDesc = "";
+if(bagScore <= 3) { bagBrand = "널핏"; bagDesc = "필수 필기구만 쏙 담아 주머니를 가볍게 만들어주는 포켓 오거나이저"; }
+else if(bagScore <= 6) { bagBrand = "너스키니"; bagDesc = "테이프 걸이 등 기본 소모품 분할 수납이 우수한 데일리 파우치"; }
+else if(bagScore <= 9) { bagBrand = "뽀너스"; bagDesc = "의료용 가위나 도구에 찢어지지 않는 단단한 원단의 가방/힙색"; }
+else { bagBrand = "너스피아"; bagDesc = "수많은 임상 필수 장비와 소품을 완벽 분할 수납하는 대용량 전문 힙색"; }
+
+// 4. 건강보조 매칭 계산
+const healthQ1 = document.querySelector('input[name="health_q1"]:checked').value;
+const healthQ2 = document.querySelector('input[name="health_q2"]:checked').value;
+
+let healthBrand = ""; let healthDesc = ""; let healthProdName = "";
+
+if (healthQ2 === "device") {
+healthBrand = "폴리오"; healthProdName = "폴리오 무선 종아리 마사지기"; healthDesc = "강력한 주무름 성능으로 임상 피로를 완벽 해소하는 마사지기";
+} else if (healthQ2 === "patch") {
+if (healthQ1 === "1") {
+healthBrand = "휴족시간"; healthProdName = "휴족시간 쿨링 리프레시 시트"; healthDesc = "근무 후 지치고 열나는 다리와 발바닥을 시원하게 식혀주는 패치";
+} else {
+healthBrand = "동국제약"; healthProdName = "동국제약 센시아 / 소염진통 파스"; healthDesc = "관절 통증 부위에 직접 작용하는 고기능성 통증 케어 파스 라인";
+}
+} else if (healthQ2 === "supplement") {
+const healthQ3 = document.querySelector('input[name="health_q3"]:checked').value;
+if (healthQ3 === "nowfoods") {
+healthBrand = "나우푸드"; healthProdName = "나우푸드 구연산 마그네슘 & 유산균"; healthDesc = "직구 기반 뛰어난 가성비로 부족한 특정 영양소만 골라 채우는 보조제";
+} else {
+healthBrand = "종근당"; healthProdName = "종근당 벤포벨 메가 활성비타민"; healthDesc = "만성 전신 피로와 고강도 교대근무 젖산을 격파하는 고함량 비타민B";
+}
+}
+
+// 결과 쇼핑몰 화면 구성
+const productsContainer = document.getElementById('mall-products');
+productsContainer.innerHTML = &lt;div class="product-card"&gt; &lt;div class="product-image-placeholder"&gt;&lt;span class="category-badge"&gt;SHOES&lt;/span&gt;&lt;div class="brand-logo-text"&gt;${shoeBrand}</div><div>임상 최적화 핏</div></div>
+<div class="product-info">
+<div><div class="product-brand">{shoeBrand} 프리미엄 임상 전문 간호화</div></div>
+<div><div class="product-meta">{stockBrand}</div><div>하지 피로 순환</div></div>
+<div class="product-info">
+<div><div class="product-brand">{stockBrand} 의료용 단계별 압박 스타킹</div></div>
+<div><div class="product-meta">{bagBrand}</div><div>스마트 오거나이저</div></div>
+<div class="product-info">
+<div><div class="product-brand">{bagBrand} 임상 특화 수납 파우치 백</div></div>
+<div><div class="product-meta">{healthBrand}</div><div>바이탈 에너저</div></div>
+<div class="product-info">
+<div><div class="product-brand">{healthProdName}</div></div>
+<div><div class="product-meta">${healthDesc}</div><div class="product-price-row"><span class="discount-rate">35%</span><span class="price">24,000원</span></div></div>
+</div>
+</div>
+`;
+
+document.getElementById('survey-section').style.display = 'none';
+document.getElementById('result-section').style.display = 'block';
+window.scrollTo(0, 0);
+}
+
+function resetSurvey() {
+document.getElementById('survey-form').reset();
+const selectedLabels = document.querySelectorAll('.option-item.selected');
+selectedLabels.forEach(label => label.classList.remove('selected'));
+toggleSuppQ(false);
+document.getElementById('survey-section').style.display = 'block';
+document.getElementById('result-section').style.display = 'none';
+window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>

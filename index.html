@@ -33,7 +33,7 @@
             min-height: 100vh;
         }
 
-        /* 1. 홈 화면 (처음 화면) */
+        /* 1. 홈 화면 */
         #home-screen {
             display: flex;
             flex-direction: column;
@@ -162,7 +162,6 @@
             accent-color: #FF7597;
         }
 
-        /* 조건부 분기 질문 숨김 스타일 */
         .conditional-q {
             display: none;
             margin-top: 15px;
@@ -174,7 +173,7 @@
         #shop-screen {
             display: none;
             width: 100%;
-            max-width: 800px;
+            max-width: 850px;
             padding: 30px 15px;
         }
 
@@ -184,9 +183,10 @@
         }
 
         .shop-header h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            line-height: 1.4;
         }
 
         .shop-header p {
@@ -197,7 +197,7 @@
         .grid-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 25px;
         }
 
         @media (max-width: 600px) {
@@ -208,27 +208,26 @@
 
         .product-card {
             background-color: var(--white);
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
             transition: transform 0.3s ease;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
         }
 
         .image-placeholder {
             background-color: #FFEAEF;
-            height: 220px;
+            height: 250px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            font-weight: 500;
+            font-size: 6rem; 
             position: relative;
         }
 
@@ -238,36 +237,37 @@
             left: 15px;
             background-color: #FF7597;
             color: white;
-            padding: 6px 14px;
-            font-size: 0.8rem;
+            padding: 6px 16px;
+            font-size: 0.85rem;
             font-weight: 700;
             border-radius: 30px;
         }
 
         .cat-tag {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #FF94B2;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             text-transform: uppercase;
         }
 
         .product-info {
-            padding: 20px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
         .product-title {
-            font-size: 1.05rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             line-height: 1.4;
+            color: #333;
         }
 
         .product-price {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #FF527B;
             margin-top: auto;
@@ -290,8 +290,7 @@
         
         <form id="survey-form">
             <div class="category-section">
-                <div class="category-name">👟 간호화 선택 문항</div>
-                
+                <div class="category-name">👟 간호화 카테고리</div>
                 <div class="question-box">
                     <p>Q1. 하루 평균 이동량은?</p>
                     <div class="options-group">
@@ -300,7 +299,6 @@
                         <label class="option-label"><input type="radio" name="shoe_q1" value="4"> 2만 보 이상</label>
                     </div>
                 </div>
-
                 <div class="question-box">
                     <p>Q2. 근무 형태는?</p>
                     <div class="options-group">
@@ -309,7 +307,6 @@
                         <label class="option-label"><input type="radio" name="shoe_q2" value="4"> 많이 걷는다</label>
                     </div>
                 </div>
-
                 <div class="question-box">
                     <p>Q3. 발볼은?</p>
                     <div class="options-group">
@@ -318,7 +315,6 @@
                         <label class="option-label"><input type="radio" name="shoe_q3" value="4"> 넓음</label>
                     </div>
                 </div>
-
                 <div class="question-box">
                     <p>Q4. 현재 가장 불편한 점은?</p>
                     <div class="options-group">
@@ -331,8 +327,7 @@
             </div>
 
             <div class="category-section">
-                <div class="category-name">🧦 압박 스타킹 / 양말 선택 문항</div>
-                
+                <div class="category-name">🧦 압박 스타킹 / 양말 카테고리</div>
                 <div class="question-box">
                     <p>Q1. 근무 후 다리 상태는?</p>
                     <div class="options-group">
@@ -341,7 +336,6 @@
                         <label class="option-label"><input type="radio" name="stocking_q1" value="4"> 많이 붓는다</label>
                     </div>
                 </div>
-
                 <div class="question-box">
                     <p>Q2. 하루 근무 시간은?</p>
                     <div class="options-group">
@@ -350,7 +344,6 @@
                         <label class="option-label"><input type="radio" name="stocking_q2" value="4"> 12시간 이상</label>
                     </div>
                 </div>
-
                 <div class="question-box">
                     <p>Q3. 압박 제품 사용 경험은?</p>
                     <div class="options-group">
@@ -362,8 +355,7 @@
             </div>
 
             <div class="category-section">
-                <div class="category-name">💼 간호 문구 (가방 · 소품) 선택 문항</div>
-                
+                <div class="category-name">💼 간호 가방 · 소품 카테고리</div>
                 <div class="question-box">
                     <p>Q1. 근무 중 소지품 양은?</p>
                     <div class="options-group">
@@ -372,7 +364,6 @@
                         <label class="option-label"><input type="radio" name="bag_q1" value="4"> 많음</label>
                     </div>
                 </div>
-
                 <div class="question-box">
                     <p>Q2. 가장 많이 사용하는 소품은?</p>
                     <div class="options-group">
@@ -381,7 +372,6 @@
                         <label class="option-label"><input type="radio" name="bag_q2" value="4"> 가위/도구</label>
                     </div>
                 </div>
-
                 <div class="question-box">
                     <p>Q3. 중요하게 생각하는 요소는?</p>
                     <div class="options-group">
@@ -393,8 +383,7 @@
             </div>
 
             <div class="category-section">
-                <div class="category-name">💊 건강 보조 식품 선택 문항</div>
-                
+                <div class="category-name">💊 건강 보조 카테고리</div>
                 <div class="question-box">
                     <p>Q1. 가장 힘든 신체 부위는?</p>
                     <div class="options-group">
@@ -403,7 +392,6 @@
                         <label class="option-label"><input type="radio" name="health_q1" value="3"> 전신 피로</label>
                     </div>
                 </div>
-
                 <div class="question-box">
                     <p>Q2. 가장 사용 의향이 있는 제품 형태는?</p>
                     <div class="options-group">
@@ -412,7 +400,6 @@
                         <label class="option-label"><input type="radio" name="health_q2" value="C" onclick="toggleConditionalQ(true)"> 영양제 / 알약</label>
                     </div>
                 </div>
-
                 <div class="question-box conditional-q" id="extra-nutrition-q">
                     <p>Q3. 영양제를 통해 가장 얻고 싶은 효과는?</p>
                     <div class="options-group">
@@ -423,15 +410,15 @@
             </div>
 
             <div style="text-align: center; margin-top: 30px;">
-                <button type="button" class="btn-main" onclick="generateShop()">쇼핑몰 생성</button>
+                <button type="button" class="btn-main" onclick="generateShop()">쇼핑몰 생성 버튼</button>
             </div>
         </form>
     </div>
 
     <div id="shop-screen">
         <div class="shop-header">
-            <h2>간호사님을 위한 맞춤형 인공지능 쇼핑몰</h2>
-            <p>선택하신 근무 조건과 신체 상태 데이터에 기반하여 생성된 매칭 스토어입니다.</p>
+            <h2>간호사님을 위한 맞춤형<br>인공지능 쇼핑몰</h2>
+            <p>데이터 분석을 통해 간호사님께 가장 필요한 아이템을 선별했습니다.</p>
         </div>
 
         <div class="grid-container" id="products-grid">
@@ -446,75 +433,52 @@
         }
 
         function toggleConditionalQ(show) {
-            const qBox = document.getElementById('extra-nutrition-q');
-            qBox.style.display = show ? 'block' : 'none';
+            document.getElementById('extra-nutrition-q').style.display = show ? 'block' : 'none';
         }
 
         function generateShop() {
             const form = document.getElementById('survey-form');
             
-            // --- 1. 간호화 매칭 로직 ---
+            // 1. 간호화 매칭
             const shoeScore = parseInt(form.shoe_q1.value) + parseInt(form.shoe_q2.value) + parseInt(form.shoe_q3.value) + parseInt(form.shoe_q4.value);
             let shoeBrand = "";
-            let shoeProdName = "듀얼 밸런스 기능성 완화 스니커즈";
-            let shoePrice = "49,000원";
-            
-            if (shoeScore >= 0 && shoeScore <= 2) { shoeBrand = "상록수"; shoeProdName = "데일리 가성비 기본형 워킹화"; shoePrice = "29,800원"; }
-            else if (shoeScore >= 3 && shoeScore <= 5) { shoeBrand = "샵피라"; shoeProdName = "이지클린 전문 의료용 오염방지 클로그"; shoePrice = "38,000원"; }
-            else if (shoeScore >= 6 && shoeScore <= 8) { shoeBrand = "엔젤슈즈"; shoeProdName = "와이드핏 컴포트 에어 간호화"; shoePrice = "42,500원"; }
-            else if (shoeScore >= 9 && shoeScore <= 10) { shoeBrand = "너스키니"; shoeProdName = "라이트핏 신축 확장형 경량화"; shoePrice = "49,900원"; }
-            else if (shoeScore >= 11 && shoeScore <= 12) { shoeBrand = "에르코앤"; shoeProdName = "스파인 코어 지지형 허리보호 간호화"; shoePrice = "59,000원"; }
-            else if (shoeScore >= 13 && shoeScore <= 14) { shoeBrand = "뽀너스"; shoeProdName = "임팩트 압축 에어 쿠션 뮬"; shoePrice = "54,800원"; }
-            else if (shoeScore >= 15 && shoeScore <= 16) { shoeBrand = "널핏"; shoeProdName = "프리미엄 아치케어 2만보 솔루션 고기능성 슈즈"; shoePrice = "69,000원"; }
+            if (shoeScore >= 0 && shoeScore <= 2) shoeBrand = "상록수";
+            else if (shoeScore >= 3 && shoeScore <= 5) shoeBrand = "샵피라";
+            else if (shoeScore >= 6 && shoeScore <= 8) shoeBrand = "엔젤슈즈";
+            else if (shoeScore >= 9 && shoeScore <= 10) shoeBrand = "너스키니";
+            else if (shoeScore >= 11 && shoeScore <= 12) shoeBrand = "에르코앤";
+            else if (shoeScore >= 13 && shoeScore <= 14) shoeBrand = "뽀너스";
+            else if (shoeScore >= 15 && shoeScore <= 16) shoeBrand = "널핏";
 
-            // --- 2. 압박스타킹 매칭 로직 ---
+            // 2. 압박스타킹 매칭
             const stockingScore = parseInt(form.stocking_q1.value) + parseInt(form.stocking_q2.value) + parseInt(form.stocking_q3.value);
             let stockingBrand = "";
-            let stockingProdName = "종아리 집중 케어 솔루션";
-            let stockingPrice = "24,000원";
+            if (stockingScore >= 0 && stockingScore <= 2) stockingBrand = "알지토";
+            else if (stockingScore >= 3 && stockingScore <= 5) stockingBrand = "스마트널스";
+            else if (stockingScore >= 6 && stockingScore <= 8) stockingBrand = "너스키니";
+            else if (stockingScore >= 9 && stockingScore <= 10) stockingBrand = "널핏";
+            else if (stockingScore >= 11 && stockingScore <= 12) stockingBrand = "잡스타킹";
 
-            if (stockingScore >= 0 && stockingScore <= 2) { stockingBrand = "알지토"; stockingProdName = "데일리 라이트 입문용 압박 삭스"; stockingPrice = "15,000원"; }
-            else if (stockingScore >= 3 && stockingScore <= 5) { stockingBrand = "스마트널스"; stockingProdName = "소프트 이지 밴드 스타킹"; stockingPrice = "19,800원"; }
-            else if (stockingScore >= 6 && stockingScore <= 8) { stockingBrand = "너스키니"; stockingProdName = "밸런스 하이 컴프레션 올데이 스타킹"; stockingPrice = "23,500원"; }
-            else if (stockingScore >= 9 && stockingScore <= 10) { stockingBrand = "널핏"; stockingProdName = "프로 하이테크 정맥 순환 종아리 압박 슬리브"; stockingPrice = "29,000원"; }
-            else if (stockingScore >= 11 && stockingScore <= 12) { stockingBrand = "잡스타킹"; stockingProdName = "의료용 정통 점진적 감압 마스터 타이즈"; stockingPrice = "39,000원"; }
-
-            // --- 3. 간호 가방/소품 매칭 로직 ---
+            // 3. 간호 가방/소품 매칭
             const bagScore = parseInt(form.bag_q1.value) + parseInt(form.bag_q2.value) + parseInt(form.bag_q3.value);
             let bagBrand = "";
-            let bagProdName = "스마트 주머니 정리 오거나이저";
-            let bagPrice = "18,000원";
+            if (bagScore >= 0 && bagScore <= 3) bagBrand = "널핏";
+            else if (bagScore >= 4 && bagScore <= 6) bagBrand = "너스키니";
+            else if (bagScore >= 7 && bagScore <= 9) bagBrand = "뽀너스";
+            else if (bagScore >= 10 && bagScore <= 12) bagBrand = "너스피아";
 
-            if (bagScore >= 0 && bagScore <= 3) { bagBrand = "널핏"; bagProdName = "미니멀 슬림 주머니 포켓 펜케이스"; bagPrice = "9,900원"; }
-            else if (bagScore >= 4 && bagScore <= 6) { bagBrand = "너스키니"; bagProdName = "데일리 분할 멀티 파우치 인백"; bagPrice = "14,500원"; }
-            else if (bagScore >= 7 && bagScore <= 9) { bagBrand = "뽀너스"; bagProdName = "세이프 가드 가위 도구 특화 하드 오거나이저"; bagPrice = "18,900원"; }
-            else if (bagScore >= 10 && bagScore <= 12) { bagBrand = "너스피아"; bagProdName = "헤비듀티 다용도 수납 멀티 힙색 바디백"; bagPrice = "26,500원"; }
-
-            // --- 4. 건강보조식품 매칭 로직 (조건부 트리 분기) ---
+            // 4. 건강보조 매칭
             const healthQ1 = parseInt(form.health_q1.value);
             const healthQ2 = form.health_q2.value;
             let healthBrand = "";
-            let healthProdName = "";
-            let healthPrice = "";
-
             if (healthQ2 === "A") {
-                if (healthQ1 === 1) {
-                    healthBrand = "휴족시간"; healthProdName = "릴렉싱 다리 쿨링 마사지 패치 (40매)"; healthPrice = "19,800원";
-                } else {
-                    healthBrand = "동국제약"; healthProdName = "센시아 정맥 순환 케어 솔루션 세트"; healthPrice = "35,000원";
-                }
+                healthBrand = (healthQ1 === 1) ? "휴족시간" : "동국제약";
             } else if (healthQ2 === "B") {
-                healthBrand = "폴리오"; healthProdName = "무선 저주파 공기압 종아리 마사지기"; healthPrice = "129,000원";
+                healthBrand = "폴리오";
             } else if (healthQ2 === "C") {
-                const healthQ3 = form.health_q3.value;
-                if (healthQ3 === "1") {
-                    healthBrand = "나우푸드"; healthProdName = "구연산 칼슘 마그네슘 위드 아연 활력 캡슐"; healthPrice = "22,400원";
-                } else {
-                    healthBrand = "종근당"; healthProdName = "벤포벨 고함량 활성비타민B 만성피로 회복제"; healthPrice = "45,000원";
-                }
+                healthBrand = (form.health_q3.value === "1") ? "나우푸드" : "종근당";
             }
 
-            // --- HTML 그리드에 제품 카드 카드 주입 ---
             const grid = document.getElementById('products-grid');
             grid.innerHTML = `
                 <div class="product-card">
@@ -523,9 +487,9 @@
                         👟
                     </div>
                     <div class="product-info">
-                        <div class="cat-tag">간호화 카테고리</div>
-                        <div class="product-title">${shoeProdName}</div>
-                        <div class="product-price">${shoePrice}</div>
+                        <div class="cat-tag">간호화</div>
+                        <div class="product-title">${shoeBrand}</div>
+                        <div class="product-price"></div>
                     </div>
                 </div>
 
@@ -536,8 +500,8 @@
                     </div>
                     <div class="product-info">
                         <div class="cat-tag">압박스타킹 / 양말</div>
-                        <div class="product-title">${stockingProdName}</div>
-                        <div class="product-price">${stockingPrice}</div>
+                        <div class="product-title">${stockingBrand}</div>
+                        <div class="product-price"></div>
                     </div>
                 </div>
 
@@ -547,9 +511,9 @@
                         💼
                     </div>
                     <div class="product-info">
-                        <div class="cat-tag">간호 문구 · 소품</div>
-                        <div class="product-title">${bagProdName}</div>
-                        <div class="product-price">${bagPrice}</div>
+                        <div class="cat-tag">간호 가방 · 소품</div>
+                        <div class="product-title">${bagBrand}</div>
+                        <div class="product-price"></div>
                     </div>
                 </div>
 
@@ -560,13 +524,12 @@
                     </div>
                     <div class="product-info">
                         <div class="cat-tag">건강 보조 제품</div>
-                        <div class="product-title">${healthProdName}</div>
-                        <div class="product-price">${healthPrice}</div>
+                        <div class="product-title">${healthBrand}</div>
+                        <div class="product-price"></div>
                     </div>
                 </div>
             `;
 
-            // 화면 전환
             document.getElementById('survey-screen').style.display = 'none';
             document.getElementById('shop-screen').style.display = 'block';
             window.scrollTo(0,0);
